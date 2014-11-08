@@ -1,6 +1,5 @@
 package com.hgdev777.util;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -26,23 +25,16 @@ public class TestCaseExt {
 	private Dimension dimension;
 	private Point point;
 
-	private static final String ERROR = "Error";
 	private static final String SLASH = "/";
 
-	protected static final int PASS = 1;
-	protected static final int FAIL = 0;
-	protected static final int ERR1 = -1;
-	protected static final int ERR2 = -2;
+	protected static final int FOUND = 1;
+	protected static final int NOT_FOUND = 0;
+	protected static final int ERROR = -1;
 
 	protected static final String LINK_TEXT = "linkText";
 	protected static final String ID = "id";
 	protected static final String XPATH = "xpath";
 	protected static final String CSS_SELECTOR = "cssSelector";
-
-	protected static final String ELEMENT_PRESENT = "ElementPresent";
-	protected static final String ELEMENT_NOT_PRESENT = "ElementNotPresent";
-	protected static final String TEXT_PRESENT = "TextPresent";
-	protected static final String TEXT_NOT_PRESENT = "TextNotPresent";
 
 	/*
 	 * Constructor and Destructor
@@ -243,12 +235,12 @@ public class TestCaseExt {
 			} else if (type.equals(ID)) {
 				_driver.findElement(By.id(target)).click();
 			} else {
-				return ERR2;
+				return NOT_FOUND;
 			}
 		} catch (Throwable e) {
-			return ERR1;
+			return ERROR;
 		}
-		return PASS;
+		return FOUND;
 	}
 
 	protected int select(String type, String id, String target) {
@@ -257,12 +249,12 @@ public class TestCaseExt {
 				new Select(_driver.findElement(By.id(id)))
 						.selectByVisibleText(target);
 			} else {
-				return ERR2;
+				return NOT_FOUND;
 			}
 		} catch (Throwable e) {
-			return ERR1;
+			return ERROR;
 		}
-		return PASS;
+		return FOUND;
 	}
 
 	protected int input(String type, String target, String text) {
@@ -274,12 +266,12 @@ public class TestCaseExt {
 				_driver.findElement(By.cssSelector(target)).clear();
 				_driver.findElement(By.cssSelector(target)).sendKeys(text);
 			} else {
-				return ERR2;
+				return NOT_FOUND;
 			}
 		} catch (Throwable e) {
-			return ERR1;
+			return ERROR;
 		}
-		return PASS;
+		return FOUND;
 	}
 
 	protected int moveToElement(String type, String target) {
@@ -299,12 +291,12 @@ public class TestCaseExt {
 				el = _driver.findElement(By.xpath(target));
 				actions.moveToElement(el).perform();
 			} else {
-				return ERR2;
+				return NOT_FOUND;
 			}
 		} catch (Throwable e) {
-			return ERR1;
+			return ERROR;
 		}
-		return PASS;
+		return FOUND;
 	}
 
 	protected String getText(String type, String target) {
@@ -314,10 +306,10 @@ public class TestCaseExt {
 				WebElement tmp = _driver.findElement(By.xpath(target));
 				val = tmp.getText();
 			} else {
-				return ERROR;
+				return null;
 			}
 		} catch (Throwable e) {
-			return ERROR;
+			return null;
 		}
 		return val;
 	}
