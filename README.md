@@ -9,14 +9,12 @@ Instructions
 
 Run all suites
 ```sh
-mvn test -DsuiteXmlFile=<PATH-TO-PARENT-SUITE-XML>
+mvn test -DsuiteXmlFile=configs/suites/suites.xml
 ```
-Replace <PATH-TO-SUITE-XML> with suite name example "configs/suites/suites.xml"
 
 
 Run a suite
 ```sh
-mvn test -DsuiteXmlFile=<PATH-TO-SUITE-XML>
+mvn test -DsuiteXmlFile=configs/suites/suiteGoogle.xml
 ```
-Replace <PATH-TO-SUITE-XML> with suite name example "configs/suites/suiteGoogle.xml"
 
