@@ -1,7 +1,7 @@
 <suite name="TestAll OEM Apigee">
     <test name="com.hgdev777.example">
         <classes>
-            <class name="com.hgdev777.example.GoogleTest" />
+            <class name="com.hgdev777.example.GoogleTestNotUsingFramework" />
         </classes>
     </test>
 </suite>
