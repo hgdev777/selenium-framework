@@ -76,12 +76,12 @@ public class TestCaseExt {
 	 * Setters
 	 */
 
-	public Boolean setDriver(WebDriver driver) {
+	public boolean setDriver(WebDriver driver) {
 		_driver = driver;
 		return true;
 	}
 
-	public Boolean setBaseUrl(String baseUrl) {
+	public boolean setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
 		try {
 			_driver.get(this.baseUrl + SLASH);
@@ -91,7 +91,7 @@ public class TestCaseExt {
 		return true;
 	}
 
-	public Boolean setTimeout(int timeout) {
+	public boolean setTimeout(int timeout) {
 		this.timeout = timeout;
 		try {
 			_driver.manage().timeouts()
@@ -102,7 +102,7 @@ public class TestCaseExt {
 		return true;
 	}
 
-	public Boolean setDimension(Dimension dimension) {
+	public boolean setDimension(Dimension dimension) {
 		this.dimension = dimension;
 		try {
 			_driver.manage().window().setSize(this.dimension);
@@ -112,7 +112,7 @@ public class TestCaseExt {
 		return true;
 	}
 
-	public Boolean setPoint(Point point) {
+	public boolean setPoint(Point point) {
 		this.point = point;
 		try {
 			_driver.manage().window().setPosition(this.point);

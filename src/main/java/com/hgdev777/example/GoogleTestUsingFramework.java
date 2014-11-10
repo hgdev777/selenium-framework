@@ -6,37 +6,37 @@ import com.hgdev777.util.TestCaseHelper;
 
 /**
  * 
- * Example test
+ * Example testcase using the TestCaseHelper
  * 
+ * Search Google.com with "selenium" keyword then verify result page.
+ *  
  * @author hernan
  * @version 1.0
  * 
  */
 public class GoogleTestUsingFramework extends TestCaseHelper {
-	
+
 	@BeforeClass
 	public void oneTimeSetUp() throws Exception {
-
-		fields.put(DIMENSION_Y, "600"); //just override
-		if (!super.init("http://www.google.com"))
-			throw new Exception();
+		// example if you want to override the screen size
+		fields.put(DIMENSION_X, "300"); 
+		fields.put(DIMENSION_Y, "600"); 
+		super.init("http://www.google.com");
 	}
 
 	@Test(priority = 1)
 	public void verifyGoogleSearch() throws Exception {
-	
-		add(ID, "hplogo"); // define target
-		verify(); // verify above target
-
-		input(ID, "gbqfq", "selenium"); // enter "selenium" in textbox
-		click(ID, "gbqfba"); // click
-
-		add(XPATH, "//div[@id='resultStats']"); // define target 1
-		add(CSS_SELECTOR, "h3.r > a"); // define target 2 
+		// verify google logo
+		add(ID, "hplogo");
+		verify();
+		// enter "selenium" in text box then click search
+		input(ID, "gbqfq", "selenium");
+		click(ID, "gbqfba");
+		// verify result page
+		add(CSS_SELECTOR, "a.gb_Ta.gb_Oa > span.gb_Qa"); 
 		add(LINK_TEXT, "Selenium - Web Browser Automation");
 		add(LINK_TEXT, "Selenium - Wikipedia, the free encyclopedia");
-		verify(); // verify above target
-
+		verify();
 	}
 
 }

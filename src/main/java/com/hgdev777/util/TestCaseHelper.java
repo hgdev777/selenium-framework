@@ -48,10 +48,15 @@ public class TestCaseHelper extends TestCaseExt {
 			super.finalize();
 	}
 
-	public Boolean init(String url) {
+	/**
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public boolean init(String url) {
 		this.fields.put(BASE_URL, url);
 		if (!this.fields.containsKey(TIMEOUT))
-			this.fields.put(TIMEOUT, "10");
+			this.fields.put(TIMEOUT, "3");
 		if (!this.fields.containsKey(DIMENSION_X))
 			this.fields.put(DIMENSION_X, "20");
 		if (!this.fields.containsKey(DIMENSION_Y))
@@ -64,7 +69,7 @@ public class TestCaseHelper extends TestCaseExt {
 			this.fields.put(SHARED_DRIVER, "true");
 
 		try {
-			// re-use if there is already an instance
+			// re-use browser instance if it exists
 			if (Boolean.parseBoolean(this.fields.get(SHARED_DRIVER))) {
 				WebDriver dr = super.getDriver();
 				if (dr == null) {
@@ -108,10 +113,6 @@ public class TestCaseHelper extends TestCaseExt {
 		return "^[\\s\\S]*" + text + "[\\s\\S]*$";
 	}
 
-	/*
-	 * Helpers
-	 */
-
 	/**
 	 * 
 	 * @param k e.g. "ID", "CSS_SELECTOR", "XPATH"
@@ -149,10 +150,6 @@ public class TestCaseHelper extends TestCaseExt {
 		}
 		return builder.toString();
 	}
-
-	/*
-	 * Operations
-	 */
 
 	public void verify() {
 		if(!this.list.isEmpty()) {
