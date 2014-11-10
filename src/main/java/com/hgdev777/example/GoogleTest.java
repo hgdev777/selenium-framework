@@ -14,7 +14,7 @@ import com.hgdev777.util.TestCaseHelper;
  * @version 1.0
  * 
  */
-public class GoogleTestUsingFramework extends TestCaseHelper {
+public class GoogleTest extends TestCaseHelper {
 
 	@BeforeClass
 	public void oneTimeSetUp() throws Exception {

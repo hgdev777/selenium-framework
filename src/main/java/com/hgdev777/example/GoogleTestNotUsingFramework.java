@@ -8,7 +8,7 @@ import static org.testng.Assert.*;
 
 /**
  * 
- * Example testcase NOT using the TestCaseHelper 
+ * Example testcase NOT using the TestCaseHelper!!!
  * 
  * Search Google.com with "selenium" keyword then verify result page.
  *  

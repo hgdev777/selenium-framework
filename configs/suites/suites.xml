@@ -2,5 +2,6 @@
 <suite name="All Suites">
 	<suite-files>
 		<suite-file path="./suiteGoogle.xml" />
+		<suite-file path="./suiteGoogleNotUsingFramework.xml" />
 	</suite-files>
 </suite>
