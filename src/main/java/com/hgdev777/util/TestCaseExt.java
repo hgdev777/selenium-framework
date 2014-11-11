@@ -225,9 +225,8 @@ public class TestCaseExt {
 	 * 
 	 * @param type
 	 *            "LINK_TEXT", "CSS_SELECTOR", "ID"
-	 * @param target
-	 *            string locator
-	 * @return true if found
+	 * @param target Locator
+	 * @return int
 	 */
 	protected int click(String type, String target) {
 		try {
@@ -250,13 +249,12 @@ public class TestCaseExt {
 	 * 
 	 * Select value from select options
 	 * 
-	 * @param type
-	 *            "ID"
+	 * @param type "ID"
 	 * @param id
 	 *            unique id of the option
 	 * @param target
 	 *            text option value
-	 * @return true if found
+	 * @return int
 	 */
 	protected int select(String type, String id, String target) {
 		try {
@@ -278,11 +276,10 @@ public class TestCaseExt {
 	 * 
 	 * @param type
 	 *            "ID", "CSS_SELECTOR"
-	 * @param target
-	 *            string locator
+	 * @param target Locator
 	 * @param text
 	 *            value to be input
-	 * @return true if found
+	 * @return int
 	 */
 	protected int input(String type, String target, String text) {
 		try {
@@ -303,13 +300,12 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * Moves cursor to a specific element
+	 * Move cursor to a specific element
 	 * 
 	 * @param type
 	 *            "ID", "LINK_TEXT", "CSS_SELECTOR", "XPATH"
-	 * @param target
-	 *            string locator
-	 * @return true if found
+	 * @param target Locator
+	 * @return int
 	 */
 	protected int moveToElement(String type, String target) {
 		Actions actions = new Actions(_driver);
@@ -338,11 +334,12 @@ public class TestCaseExt {
 
 	/**
 	 * 
+	 * Get text from an element
+	 * 
 	 * @param type
 	 *            "XPATH"
-	 * @param target
-	 *            string locator
-	 * @return text value
+	 * @param target Locator
+	 * @return String
 	 */
 	protected String getText(String type, String target) {
 		String val = null;
@@ -361,11 +358,12 @@ public class TestCaseExt {
 
 	/**
 	 * 
+	 * Get all options from select menu
+	 * 
 	 * @param type
-	 *            values "ID", "XPATH"
-	 * @param target
-	 *            string locator
-	 * @return all options in the select menu
+	 *            "ID", "XPATH"
+	 * @param target Locator
+	 * @return List
 	 */
 	protected List<String> getSelectOptions(String type, String target) {
 		WebElement el;
@@ -391,13 +389,14 @@ public class TestCaseExt {
 
 	/**
 	 * 
+	 * Get value from an element by attribute
+	 * 
 	 * @param type
-	 *            value "CSS_SELECTOR"
-	 * @param target
-	 *            string locator
+	 *            "CSS_SELECTOR"
+	 * @param target Locator
 	 * @param attribute
-	 *            element attribute value
-	 * @return value of an element
+	 *            Element attribute value
+	 * @return String
 	 */
 	protected String getAttributeValue(String type, String target,
 			String attribute) {
