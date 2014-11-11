@@ -21,7 +21,7 @@ public class GoogleTest extends TestCaseHelper {
 		// example if you want to override the screen size
 		fields.put(DIMENSION_X, "300"); 
 		fields.put(DIMENSION_Y, "600"); 
-		super.init("http://www.google.com");
+		init("http://www.google.com");
 	}
 
 	@Test(priority = 1)
@@ -33,7 +33,6 @@ public class GoogleTest extends TestCaseHelper {
 		input(ID, "gbqfq", "selenium");
 		click(ID, "gbqfba");
 		// verify result page
-		add(CSS_SELECTOR, "a.gb_Ta.gb_Oa > span.gb_Qa"); 
 		add(LINK_TEXT, "Selenium - Web Browser Automation");
 		add(LINK_TEXT, "Selenium - Wikipedia, the free encyclopedia");
 		verify();
