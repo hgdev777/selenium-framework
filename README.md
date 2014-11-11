@@ -97,4 +97,4 @@ Example: Add to `configs/suites/Google/suiteGoogle.xml` or create new suite if y
 Note
 ===========
 
-Anyone is welcome to contribute just send a pull request
+Everyone is welcome to contribute just send a pull request
