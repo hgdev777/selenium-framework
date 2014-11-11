@@ -5,6 +5,7 @@ GUI automation framework making test case coding simple and easy using Selenium,
 
 Available encapsulated methods aside from Selenium native:
 
+```
 click("LINK_TEXT", <LINK-TEXT-GOES-HERE>)
 click("CSS_SELECTOR", <CSS-SELECTOR-GOES-HERE>)
 click("ID", <ID-GOES-HERE>)
@@ -19,7 +20,7 @@ getText("XPATH", <XPATH-GOES-HERE>)
 getSelectOptions("ID", <ID-GOES-HERE>)
 getSelectOptions("XPATH", <XPATH-GOES-HERE>)
 getAttributeValue("CSS_SELECTOR", <CSS-SELECTOR-GOES-HERE>, <ATTRIBUTE-GOES-HERE>)
-
+```
 
 Dependencies
 ========================
