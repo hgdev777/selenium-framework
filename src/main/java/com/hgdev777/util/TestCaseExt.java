@@ -223,8 +223,10 @@ public class TestCaseExt {
 	 * 
 	 * Click an element
 	 * 
-	 * @param type "LINK_TEXT", "CSS_SELECTOR", "ID"
-	 * @param target string locator
+	 * @param type
+	 *            "LINK_TEXT", "CSS_SELECTOR", "ID"
+	 * @param target
+	 *            string locator
 	 * @return true if found
 	 */
 	protected int click(String type, String target) {
@@ -248,9 +250,12 @@ public class TestCaseExt {
 	 * 
 	 * Select value from select options
 	 * 
-	 * @param type "ID"
-	 * @param id unique id of the option
-	 * @param target text option value
+	 * @param type
+	 *            "ID"
+	 * @param id
+	 *            unique id of the option
+	 * @param target
+	 *            text option value
 	 * @return true if found
 	 */
 	protected int select(String type, String id, String target) {
@@ -271,9 +276,12 @@ public class TestCaseExt {
 	 * 
 	 * Enter value in input field
 	 * 
-	 * @param type "ID", "CSS_SELECTOR"
-	 * @param target string locator
-	 * @param text value to be input
+	 * @param type
+	 *            "ID", "CSS_SELECTOR"
+	 * @param target
+	 *            string locator
+	 * @param text
+	 *            value to be input
 	 * @return true if found
 	 */
 	protected int input(String type, String target, String text) {
@@ -297,8 +305,10 @@ public class TestCaseExt {
 	 * 
 	 * Moves cursor to a specific element
 	 * 
-	 * @param type "ID", "LINK_TEXT", "CSS_SELECTOR", "XPATH"
-	 * @param target string locator
+	 * @param type
+	 *            "ID", "LINK_TEXT", "CSS_SELECTOR", "XPATH"
+	 * @param target
+	 *            string locator
 	 * @return true if found
 	 */
 	protected int moveToElement(String type, String target) {
@@ -328,8 +338,10 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * @param type "XPATH"
-	 * @param target string locator
+	 * @param type
+	 *            "XPATH"
+	 * @param target
+	 *            string locator
 	 * @return text value
 	 */
 	protected String getText(String type, String target) {
@@ -349,8 +361,10 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * @param type values "ID", "XPATH"
-	 * @param target string locator
+	 * @param type
+	 *            values "ID", "XPATH"
+	 * @param target
+	 *            string locator
 	 * @return all options in the select menu
 	 */
 	protected List<String> getSelectOptions(String type, String target) {
@@ -377,9 +391,12 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * @param type value "CSS_SELECTOR"
-	 * @param target string locator
-	 * @param attribute element attribute value
+	 * @param type
+	 *            value "CSS_SELECTOR"
+	 * @param target
+	 *            string locator
+	 * @param attribute
+	 *            element attribute value
 	 * @return value of an element
 	 */
 	protected String getAttributeValue(String type, String target,
