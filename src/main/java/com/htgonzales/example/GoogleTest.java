@@ -19,8 +19,8 @@ public class GoogleTest extends TestCaseHelper {
 	@BeforeClass
 	public void oneTimeSetUp() throws Exception {
 		// example if you want to override the screen size
-		fields.put(DIMENSION_X, "300"); 
-		fields.put(DIMENSION_Y, "600"); 
+		//fields.put(DIMENSION_X, "300"); 
+		//fields.put(DIMENSION_Y, "600"); 
 		init("http://www.google.com");
 	}
 
@@ -28,6 +28,7 @@ public class GoogleTest extends TestCaseHelper {
 	public void verifyGoogleSearch() throws Exception {
 		// verify google logo
 		add(ID, "hplogo");
+		// verify will clear the list after
 		verify();
 		// enter "selenium" in text box then click search
 		input(ID, "gbqfq", "selenium");
@@ -35,7 +36,7 @@ public class GoogleTest extends TestCaseHelper {
 		// verify result page
 		add(LINK_TEXT, "Selenium - Web Browser Automation");
 		add(LINK_TEXT, "Selenium - Wikipedia, the free encyclopedia");
-		// verify will clear the list after verifying
+		// verify will clear the list after
 		verify();
 	}
 
