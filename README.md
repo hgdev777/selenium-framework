@@ -3,6 +3,24 @@ selenium-framework
 
 GUI automation framework making test case coding simple and easy using Selenium, TestNG and Maven
 
+Available encapsulated methods aside from Selenium native:
+
+click("LINK_TEXT", <LINK-TEXT-GOES-HERE>)
+click("CSS_SELECTOR", <CSS-SELECTOR-GOES-HERE>)
+click("ID", <ID-GOES-HERE>)
+select("ID", <ID-GOES-HERE>, <TEXT-GOES-HERE>)
+input("ID", <ID-GOES-HERE>, <TEXT-GOES-HERE>)
+input("CSS_SELECTOR", <CSS-SELECTOR-GOES-HERE>, <TEXT-GOES-HERE>)
+moveToElement("ID", <ID-GOES-HERE>)
+moveToElement("LINK_TEXT", <LINK-TEXT-GOES-HERE>)
+moveToElement("CSS_SELECTOR", <CSS-SELECTOR-GOES-HERE>)
+moveToElement("XPATH", <XPATH-GOES-HERE>)
+getText("XPATH", <XPATH-GOES-HERE>)
+getSelectOptions("ID", <ID-GOES-HERE>)
+getSelectOptions("XPATH", <XPATH-GOES-HERE>)
+getAttributeValue("CSS_SELECTOR", <CSS-SELECTOR-GOES-HERE>, <ATTRIBUTE-GOES-HERE>)
+
+
 Dependencies
 ========================
 
