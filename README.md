@@ -1,7 +1,7 @@
 selenium-framework
 ==================
 
-Selenium wrapper to make selenium coding simple and easy
+GUI automation framework making test case coding simple and easy using Selenium, TestNG and Maven
 
 Dependencies
 ============
