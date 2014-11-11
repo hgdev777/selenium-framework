@@ -6,6 +6,7 @@ GUI automation framework making test case coding simple and easy using Selenium,
 Available encapsulated methods aside from Selenium native:
 
 ```
+init(<URL-GOES-HERE>)
 add(ID, <ID-GOES-HERE>);
 add(LINK_TEXT, <LINK-TEXT-GOES-HERE>);
 add(CSS_SELECTOR, <CSS-SELECTOR-GOES-HERE>);
