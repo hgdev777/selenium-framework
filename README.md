@@ -22,7 +22,11 @@ mvn test -DsuiteXmlFile=configs/suites/suiteGoogle.xml
 How To Create New Test Case
 ========================
 
-1.  Example on how to create test case
+1. Create a test case
+
+Example 
+
+Create a file `src/main/java/com/hgdev777/example/GoogleTest2.java`
 
 ```sh
 package com.hgdev777.example;
@@ -49,22 +53,23 @@ public class GoogleTest2 extends TestCaseHelper {
 	}
 }
 ```
+The test case above will open google.com, enter "selenium" in the search box, click search, then verify elements on the result page.
 
-2.  Save it under src/main/java
+2. Add test case to a suite.
 
-3.  Add test case to a suite 
+Example
+
+Add to `configs/suites/Google/suiteGoogle.xml` or create new suite if you want
 
 ```sh
 <suite name="Test Google">
 	<test name="com.hgdev777.example">
 		<classes>
 			<class name="com.hgdev777.example.GoogleTest" />
-			<class name="com.hgdev777.example.GoogleTest2" />
+			`<class name="com.hgdev777.example.GoogleTest2" />`
 		</classes>
 	</test>
 </suite>
 ```
-Modify configs/suites/Google/suiteGoogle.xml
 
 
-The test case above will open google.com, enter "selenium" in the search box, click search, then verify elements on the result page.
