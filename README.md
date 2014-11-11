@@ -25,10 +25,10 @@ Run a suite
 mvn test -DsuiteXmlFile=configs/suites/suiteGoogle.xml
 ```
 
-How To
+How To Create Test Case
 ============
 
-To create new test case example:
+Example:
 
 ```sh
 package com.hgdev777.example;
@@ -59,4 +59,6 @@ public class GoogleTest extends TestCaseHelper {
 	}
 }
 ```
+src/main/java/com/hgdev777/example/GoogleTest.java
+
 The test case above will open google.com, verify logo, enter "selenium" in the search box, click search, then verify elements on the result page.
