@@ -3,7 +3,7 @@ selenium-framework
 
 GUI automation framework making test case coding simple and easy using Selenium, TestNG and Maven
 
-Available encapsulated methods aside from Selenium native:
+Available encapsulated methods so far aside from Selenium native:
 
 ```
 init(<URL-GOES-HERE>)
