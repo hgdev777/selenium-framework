@@ -32,13 +32,10 @@ To create new test case example:
 
 ```sh
 package com.hgdev777.example;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.hgdev777.util.TestCaseHelper;
-
 public class GoogleTest extends TestCaseHelper {
-
 	@BeforeClass
 	public void oneTimeSetUp() throws Exception {
 		// example if you want to override the screen size
@@ -46,7 +43,6 @@ public class GoogleTest extends TestCaseHelper {
 		fields.put(DIMENSION_Y, "600"); 
 		super.init("http://www.google.com");
 	}
-
 	@Test(priority = 1)
 	public void verifyGoogleSearch() throws Exception {
 		// verify google logo
@@ -61,6 +57,6 @@ public class GoogleTest extends TestCaseHelper {
 		add(LINK_TEXT, "Selenium - Wikipedia, the free encyclopedia");
 		verify();
 	}
-
 }
 ```
+The test case above will open google.com, verify logo, enter "selenium" in the search box, click search, then verify elements on the result page.
