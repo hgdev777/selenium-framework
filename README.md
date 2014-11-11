@@ -1,6 +1,8 @@
 selenium-framework
 ========================
 
+Selenium test case implementation made easy!
+
 GUI automation framework making test case coding simple and easy using Selenium, TestNG and Maven
 
 Available encapsulated methods so far aside from Selenium native:
@@ -49,14 +51,14 @@ How To Create New Test Case
 
 I. Create a test case
 
-Example: Create a file `src/main/java/com/hgdev777/example/GoogleTest2.java`
+Example: Create a file `src/main/java/com/htgonzales/example/GoogleTest2.java`
 
 ```sh
-package com.hgdev777.example;
+package com.htgonzales.example;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import com.hgdev777.util.TestCaseHelper;
+import com.htgonzales.util.TestCaseHelper;
 
 public class GoogleTest2 extends TestCaseHelper {
 
@@ -84,12 +86,16 @@ Example: Add to `configs/suites/Google/suiteGoogle.xml` or create new suite if y
 
 ```
 <suite name="Test Google">
-	<test name="com.hgdev777.example">
+	<test name="com.htgonzales.example">
 		<classes>
-			<class name="com.hgdev777.example.GoogleTest" />
-			<class name="com.hgdev777.example.GoogleTest2" />
+			<class name="com.htgonzales.example.GoogleTest" />
+			<class name="com.htgonzales.example.GoogleTest2" />
 		</classes>
 	</test>
 </suite>
 ```
 
+Note
+===========
+
+Anyone is welcome to contribute just send a pull request
