@@ -35,6 +35,7 @@ public class GoogleTest extends TestCaseHelper {
 		// verify result page
 		add(LINK_TEXT, "Selenium - Web Browser Automation");
 		add(LINK_TEXT, "Selenium - Wikipedia, the free encyclopedia");
+		// verify will clear the list after verifying
 		verify();
 	}
 
