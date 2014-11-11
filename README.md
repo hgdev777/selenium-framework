@@ -41,9 +41,11 @@ Dependencies
 How To Run
 ========================
 
+Simply checkout this package then run Maven TestNG suite
+
 Example on how run a suite
 ```sh
-mvn test -DsuiteXmlFile=configs/suites/suiteGoogle.xml
+mvn test -DsuiteXmlFile=configs/suites/Google/suiteGoogle.xml
 ```
 
 How To Create New Test Case
