@@ -6,6 +6,11 @@ GUI automation framework making test case coding simple and easy using Selenium,
 Available encapsulated methods aside from Selenium native:
 
 ```
+add(ID, <ID-GOES-HERE>);
+add(LINK_TEXT, <LINK-TEXT-GOES-HERE>);
+add(CSS_SELECTOR, <CSS-SELECTOR-GOES-HERE>);
+add(XPATH, <XPATH-GOES-HERE>);
+verify();
 click("LINK_TEXT", <LINK-TEXT-GOES-HERE>)
 click("CSS_SELECTOR", <CSS-SELECTOR-GOES-HERE>)
 click("ID", <ID-GOES-HERE>)

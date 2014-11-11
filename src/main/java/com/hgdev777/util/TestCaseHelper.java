@@ -151,6 +151,10 @@ public class TestCaseHelper extends TestCaseExt {
 		return builder.toString();
 	}
 
+	/**
+	 * Add at least one element first using add(k, v) before calling verify().
+	 * This method clears the list right after it verifies.
+	 */
 	public void verify() {
 		if(!this.list.isEmpty()) {
 			for(Element element : this.list) {
