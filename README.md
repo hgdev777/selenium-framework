@@ -57,13 +57,14 @@ II. Add test case to a suite.
 
 Example: Add to `configs/suites/Google/suiteGoogle.xml` or create new suite if you want
 
+```
 <suite name="Test Google">
 	<test name="com.hgdev777.example">
 		<classes>
 			<class name="com.hgdev777.example.GoogleTest" />
-			**<class name="com.hgdev777.example.GoogleTest2" />**
+			<class name="com.hgdev777.example.GoogleTest2" />
 		</classes>
 	</test>
 </suite>
-
+```
 
