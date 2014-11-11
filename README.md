@@ -71,7 +71,6 @@ public class GoogleTest2 extends TestCaseHelper {
 	public void verifyGoogleSearch() throws Exception {
 		input(ID, "gbqfq", "selenium");
 		click(ID, "gbqfba");
-		add(CSS_SELECTOR, "a.gb_Ta.gb_Oa > span.gb_Qa"); 
 		add(LINK_TEXT, "Selenium - Web Browser Automation");
 		add(LINK_TEXT, "Selenium - Wikipedia, the free encyclopedia");
 		verify();
