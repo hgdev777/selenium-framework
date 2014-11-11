@@ -37,7 +37,7 @@ public class TestCaseExt {
 	protected static final String CSS_SELECTOR = "cssSelector";
 
 	/*
-	 * Constructor and Destructor
+	 * Constructor and Garbage Collector
 	 */
 
 	public TestCaseExt() {
@@ -123,16 +123,12 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * Helpers
+	 * Private Helpers
 	 */
 
 	private String convertToRegEx(String text) {
 		return "^[\\s\\S]*" + text + "[\\s\\S]*$";
 	}
-
-	/*
-	 * Selenium Methods
-	 */
 
 	private boolean isElementPresent(By by) {
 		try {
@@ -142,10 +138,6 @@ public class TestCaseExt {
 			return false;
 		}
 	}
-
-	/*
-	 * Extensions
-	 */
 
 	private boolean isElementPresentById(String idStr) {
 		try {
@@ -183,7 +175,7 @@ public class TestCaseExt {
 			String textStr) {
 		try {
 			return _driver.findElement(By.cssSelector(cssSelectorStr))
-						.getText().matches(textStr);
+					.getText().matches(textStr);
 		} catch (Throwable e) {
 			return false;
 		}
@@ -193,7 +185,7 @@ public class TestCaseExt {
 		String textStrRegEx = this.convertToRegEx(textStr);
 		try {
 			return _driver.findElement(By.xpath(xpathStr)).getText()
-						.matches(textStrRegEx);
+					.matches(textStrRegEx);
 		} catch (Throwable e) {
 			return false;
 		}
@@ -213,7 +205,8 @@ public class TestCaseExt {
 		}
 	}
 
-	protected boolean isTextPresent(String type, String targetStr, String locationStr) {
+	protected boolean isTextPresent(String type, String targetStr,
+			String locationStr) {
 		if (type.equals(CSS_SELECTOR)) {
 			return isTextPresentByCssSelector(locationStr, targetStr);
 		} else if (type.equals(XPATH)) {
@@ -223,9 +216,17 @@ public class TestCaseExt {
 	}
 
 	/*
-	 * Actions
+	 * Operations and Actions
 	 */
 
+	/**
+	 * 
+	 * Click an element
+	 * 
+	 * @param type "LINK_TEXT", "CSS_SELECTOR", "ID"
+	 * @param target string locator
+	 * @return true if found
+	 */
 	protected int click(String type, String target) {
 		try {
 			if (type.equals(LINK_TEXT)) {
@@ -243,6 +244,15 @@ public class TestCaseExt {
 		return FOUND;
 	}
 
+	/**
+	 * 
+	 * Select value from select options
+	 * 
+	 * @param type "ID"
+	 * @param id unique id of the option
+	 * @param target text option value
+	 * @return true if found
+	 */
 	protected int select(String type, String id, String target) {
 		try {
 			if (type.equals(ID)) {
@@ -257,6 +267,15 @@ public class TestCaseExt {
 		return FOUND;
 	}
 
+	/**
+	 * 
+	 * Enter value in input field
+	 * 
+	 * @param type "ID", "CSS_SELECTOR"
+	 * @param target string locator
+	 * @param text value to be input
+	 * @return true if found
+	 */
 	protected int input(String type, String target, String text) {
 		try {
 			if (type.equals(ID)) {
@@ -274,6 +293,14 @@ public class TestCaseExt {
 		return FOUND;
 	}
 
+	/**
+	 * 
+	 * Moves cursor to a specific element
+	 * 
+	 * @param type "ID", "LINK_TEXT", "CSS_SELECTOR", "XPATH"
+	 * @param target string locator
+	 * @return true if found
+	 */
 	protected int moveToElement(String type, String target) {
 		Actions actions = new Actions(_driver);
 		WebElement el;
@@ -299,6 +326,12 @@ public class TestCaseExt {
 		return FOUND;
 	}
 
+	/**
+	 * 
+	 * @param type "XPATH"
+	 * @param target string locator
+	 * @return text value
+	 */
 	protected String getText(String type, String target) {
 		String val = null;
 		try {
@@ -314,6 +347,12 @@ public class TestCaseExt {
 		return val;
 	}
 
+	/**
+	 * 
+	 * @param type values "ID", "XPATH"
+	 * @param target string locator
+	 * @return all options in the select menu
+	 */
 	protected List<String> getSelectOptions(String type, String target) {
 		WebElement el;
 		List<WebElement> Options = new ArrayList<WebElement>();
@@ -336,6 +375,13 @@ public class TestCaseExt {
 		return values;
 	}
 
+	/**
+	 * 
+	 * @param type value "CSS_SELECTOR"
+	 * @param target string locator
+	 * @param attribute element attribute value
+	 * @return value of an element
+	 */
 	protected String getAttributeValue(String type, String target,
 			String attribute) {
 		String retVal = null;
