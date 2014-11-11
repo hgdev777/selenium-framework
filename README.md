@@ -57,7 +57,6 @@ II. Add test case to a suite.
 
 Example: Add to `configs/suites/Google/suiteGoogle.xml` or create new suite if you want
 
-```sh
 <suite name="Test Google">
 	<test name="com.hgdev777.example">
 		<classes>
@@ -66,6 +65,5 @@ Example: Add to `configs/suites/Google/suiteGoogle.xml` or create new suite if y
 		</classes>
 	</test>
 </suite>
-```
 
 
