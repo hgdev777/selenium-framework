@@ -1,8 +1,8 @@
-package com.hgdev777.example;
+package com.htgonzales.example;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import com.hgdev777.util.TestCaseHelper;
+import com.htgonzales.util.TestCaseHelper;
 
 /**
  * 

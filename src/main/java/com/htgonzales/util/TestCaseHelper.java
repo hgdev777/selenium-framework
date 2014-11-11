@@ -1,4 +1,4 @@
-package com.hgdev777.util;
+package com.htgonzales.util;
 
 import static org.testng.Assert.assertTrue;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
-import com.hgdev777.util.Element;
+import com.htgonzales.util.Element;
 
 /**
  * 

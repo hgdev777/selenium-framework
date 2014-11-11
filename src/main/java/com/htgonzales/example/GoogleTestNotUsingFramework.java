@@ -1,4 +1,4 @@
-package com.hgdev777.example;
+package com.htgonzales.example;
 
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
