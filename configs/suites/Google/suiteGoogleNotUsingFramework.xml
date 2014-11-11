@@ -1,7 +1,7 @@
 <suite name="Test Google">
-    <test name="com.hgdev777.example">
+    <test name="com.htgonzales.example">
         <classes>
-            <class name="com.hgdev777.example.GoogleTestNotUsingFramework" />
+            <class name="com.htgonzales.example.GoogleTestNotUsingFramework" />
         </classes>
     </test>
 </suite>
