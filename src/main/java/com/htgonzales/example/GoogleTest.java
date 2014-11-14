@@ -3,7 +3,7 @@ package com.htgonzales.example;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import com.htgonzales.util.TestCaseExt;
+import com.htgonzales.util.SeleniumWrapper;
 
 /**
  * 
@@ -15,7 +15,7 @@ import com.htgonzales.util.TestCaseExt;
  * @version 1.0
  * 
  */
-public class GoogleTest extends TestCaseExt {
+public class GoogleTest extends SeleniumWrapper {
 
 	@BeforeClass
 	public void oneTimeSetUp() throws Exception {

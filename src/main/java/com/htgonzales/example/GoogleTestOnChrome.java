@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import com.htgonzales.util.TestCaseExt;
+import com.htgonzales.util.SeleniumWrapper;
 
 /**
  * Test case using chrome driver
@@ -14,7 +14,7 @@ import com.htgonzales.util.TestCaseExt;
  * @version 1.0
  * 
  */
-public class GoogleTestOnChrome extends TestCaseExt {
+public class GoogleTestOnChrome extends SeleniumWrapper {
 
 	@BeforeClass
 	public void oneTimeSetUp() throws Exception {

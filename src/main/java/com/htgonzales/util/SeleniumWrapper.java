@@ -21,7 +21,7 @@ import org.openqa.selenium.Point;
  * @version 1.0
  * 
  */
-public class TestCaseExt {
+public class SeleniumWrapper {
 
 	private static WebDriver _driver;
 	private static final String SLASH = "/";
@@ -49,7 +49,7 @@ public class TestCaseExt {
 	/**
 	 * Constructor
 	 */
-	public TestCaseExt() {
+	public SeleniumWrapper() {
 		list = new ArrayList<Element>();
 		fields = new HashMap<String, String>();
 	}
