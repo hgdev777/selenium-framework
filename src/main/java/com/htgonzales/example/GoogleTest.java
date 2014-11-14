@@ -1,5 +1,6 @@
 package com.htgonzales.example;
 
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.htgonzales.util.TestCaseExt;
@@ -21,7 +22,7 @@ public class GoogleTest extends TestCaseExt {
 		// example if you want to override the screen size
 		//fields.put(DIMENSION_X, "300"); 
 		//fields.put(DIMENSION_Y, "600"); 
-		init("http://www.google.com");
+		init(new FirefoxDriver(), "http://www.google.com");
 	}
 
 	@Test(priority = 1)

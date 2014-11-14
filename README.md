@@ -8,7 +8,7 @@ GUI automation framework making test case coding simple and easy using Selenium,
 Available encapsulated methods so far aside from Selenium native:
 
 ```sh
-init(<URL-GOES-HERE>)
+init(WebDriver, <URL-GOES-HERE>)
 add(ID, <ID-GOES-HERE>)
 add(LINK_TEXT, <LINK-TEXT-GOES-HERE>)
 add(CSS_SELECTOR, <CSS-SELECTOR-GOES-HERE>)

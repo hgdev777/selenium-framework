@@ -3,7 +3,6 @@ package com.htgonzales.util;
 import static org.testng.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -12,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.Dimension;
@@ -29,14 +27,14 @@ public class TestCaseExt {
 	private static final String SLASH = "/";
 	private Map<String, String> fields;
 	private ArrayList<Element> list;
-	
+
 	protected static final int FOUND = 1;
 	protected static final int NOT_FOUND = 0;
 	protected static final String LINK_TEXT = "linkText";
 	protected static final String ID = "id";
 	protected static final String XPATH = "xpath";
 	protected static final String CSS_SELECTOR = "cssSelector";
-	
+
 	public static final int PASS = 1;
 	public static final int FAIL = 0;
 	public static final int ERROR = -1;
@@ -47,23 +45,33 @@ public class TestCaseExt {
 	public static final String POINT_X = "selenium_pointx";
 	public static final String POINT_Y = "selenium_pointy";
 	public static final String SHARED_DRIVER = "selenium_sharedDriver";
-	
+
+	/**
+	 * Constructor
+	 */
 	public TestCaseExt() {
-		this.list = new ArrayList<Element>();
-		this.fields = new HashMap<String, String>();
+		list = new ArrayList<Element>();
+		fields = new HashMap<String, String>();
 	}
 
+	/**
+	 * Garbage Collector
+	 */
 	public void finalize() {
 		if (_driver != null)
 			_driver.quit();
 	}
 
 	/**
+	 * Initializes driver's configurations
 	 * 
+	 * @param driver
 	 * @param url
 	 * @return
 	 */
-	public boolean init(String url) {
+	public boolean init(WebDriver driver, String url) {
+
+		// set defaults if empty
 		fields.put(BASE_URL, url);
 		if (!fields.containsKey(TIMEOUT))
 			fields.put(TIMEOUT, "3");
@@ -79,29 +87,42 @@ public class TestCaseExt {
 			fields.put(SHARED_DRIVER, "true");
 
 		try {
+
+			// set driver
 			// re-use browser instance if it exists
 			if (Boolean.parseBoolean(fields.get(SHARED_DRIVER))) {
 				WebDriver dr = _driver;
 				if (dr == null) {
-					_driver = new FirefoxDriver();
+					_driver = driver;
 				}
 			} else {
-				_driver = new FirefoxDriver();
+				_driver = driver;
 			}
-			_driver.manage().window().setSize(
-				new Dimension(
-					Integer.parseInt(fields.get(DIMENSION_X)), 
-					Integer.parseInt(fields.get(DIMENSION_Y))
-				)
-			);
-			_driver.manage().window().setPosition(
-				new Point(
-					Integer.parseInt(fields.get(POINT_X)), 
-					Integer.parseInt(fields.get(POINT_Y))
-				)
-			);
+
+			// set window size
+			_driver.manage()
+					.window()
+					.setSize(
+							new Dimension(Integer.parseInt(fields
+									.get(DIMENSION_X)), Integer.parseInt(fields
+									.get(DIMENSION_Y))));
+
+			// set window location
+			_driver.manage()
+					.window()
+					.setPosition(
+							new Point(Integer.parseInt(fields.get(POINT_X)),
+									Integer.parseInt(fields.get(POINT_Y))));
+
+			// set url
 			_driver.get(fields.get(BASE_URL) + SLASH);
-			_driver.manage().timeouts().implicitlyWait(Integer.parseInt(fields.get(TIMEOUT)), TimeUnit.SECONDS);		
+
+			// set timeout
+			_driver.manage()
+					.timeouts()
+					.implicitlyWait(Integer.parseInt(fields.get(TIMEOUT)),
+							TimeUnit.SECONDS);
+
 		} catch (Exception e) {
 			return false;
 		}
@@ -109,40 +130,56 @@ public class TestCaseExt {
 	}
 
 	/**
+	 * Gets the driver's configurations
 	 * 
-	 * @return fields
+	 * @return
 	 */
 	public Map<String, String> getParams() {
 		return fields;
 	}
 
 	/**
+	 * Adds item into the list
 	 * 
-	 * @param k e.g. "ID", "CSS_SELECTOR", "XPATH"
-	 * @param v e.g. "username", "div.viewLogo", "//div[@id='username']/h1"
+	 * @param k
+	 *            e.g. "ID", "CSS_SELECTOR", "XPATH"
+	 * @param v
+	 *            e.g. "username", "div.viewLogo", "//div[@id='username']/h1"
 	 */
 	public void add(String k, String v) {
-		this.list.add(new Element(Element.ELEMENT, k, v));
+		list.add(new Element(Element.ELEMENT, k, v));
 	}
 
 	/**
+	 * Adds item into the list
 	 * 
-	 * @param k e.g. "XPATH"
-	 * @param v e.g. "Enter Username"
-	 * @param l e.g. "//div[@id='username']/h1"
+	 * @param k
+	 *            e.g. "XPATH"
+	 * @param v
+	 *            e.g. "Enter Username"
+	 * @param l
+	 *            e.g. "//div[@id='username']/h1"
 	 */
 	public void add(String k, String v, String l) {
-		this.list.add(new Element(Element.TEXT, k, v, l));
+		list.add(new Element(Element.TEXT, k, v, l));
 	}
-	
+
+	/**
+	 * Delays the thread
+	 * 
+	 * @param sec
+	 * @throws InterruptedException
+	 */
 	public void wait(int sec) throws InterruptedException {
 		long msec = sec * 1000;
 		Thread.sleep(msec);
 	}
 
 	/**
+	 * Generates random size of 10 alpha-numeric characters
 	 * 
-	 * @return String random size of 10 alpha-numeric characters
+	 * @param length
+	 * @return
 	 */
 	public static String rand(int length) {
 		Random r = new Random();
@@ -159,9 +196,9 @@ public class TestCaseExt {
 	 * This method clears the list right after it verifies.
 	 */
 	public void verify() {
-		if(!this.list.isEmpty()) {
-			for(Element element : this.list) {
-				if(element.getType() == Element.TEXT) {
+		if (!list.isEmpty()) {
+			for (Element element : list) {
+				if (element.getType() == Element.TEXT) {
 					assertTrue(isTextPresent(element.getKey(),
 							element.getValue(), element.getLocation()));
 				} else {
@@ -169,25 +206,20 @@ public class TestCaseExt {
 							element.getValue()));
 				}
 			}
-			this.list.clear();
+			list.clear();
 		}
-	}
-	
-	public boolean setDriver(WebDriver driver) {
-		_driver = driver;
-		return true;
 	}
 
 	/**
+	 * Returns current driver
 	 * 
-	 * @return WebDriver
+	 * @return
 	 */
 	public WebDriver getDriver() {
 		return _driver;
 	}
-	
+
 	/**
-	 * 
 	 * Format text into regular expression
 	 * 
 	 * @param text
@@ -196,17 +228,12 @@ public class TestCaseExt {
 	public String convertToRegEx(String text) {
 		return "^[\\s\\S]*" + text + "[\\s\\S]*$";
 	}
-	
-	/*
-	 * Operations and Actions
-	 */
-	
+
 	/**
-	 * 
 	 * Verifies element is present
 	 * 
 	 * @param type
-	 * 			"LINK_TEXT", "ID", "XPATH", "CSS_SELECTOR"
+	 *            "LINK_TEXT", "ID", "XPATH", "CSS_SELECTOR"
 	 * @param targetStr
 	 * @return
 	 */
@@ -225,30 +252,28 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * 
 	 * Verifies text is present
 	 * 
 	 * @param type
-	 * 			"CSS_SELECTOR", "XPATH"
-	 * @param targetStr 
+	 *            "CSS_SELECTOR", "XPATH"
+	 * @param targetStr
 	 * @param locationStr
 	 * @return
 	 */
 	protected boolean isTextPresent(String type, String targetStr,
 			String locationStr) {
 		if (type.equals(CSS_SELECTOR)) {
-			return _driver.findElement(By.cssSelector(targetStr))
-					.getText().matches(locationStr);
+			return _driver.findElement(By.cssSelector(targetStr)).getText()
+					.matches(locationStr);
 		} else if (type.equals(XPATH)) {
-			String textStrRegEx = this.convertToRegEx(targetStr);
+			String textStrRegEx = convertToRegEx(targetStr);
 			return _driver.findElement(By.xpath(locationStr)).getText()
 					.matches(textStrRegEx);
 		}
 		return false;
 	}
-	
+
 	/**
-	 * 
 	 * Clicks an element
 	 * 
 	 * @param type
@@ -274,10 +299,10 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * 
 	 * Selects value from select options
 	 * 
-	 * @param type "ID"
+	 * @param type
+	 *            "ID"
 	 * @param id
 	 * @param target
 	 * @return int
@@ -297,7 +322,6 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * 
 	 * Enters value in input field
 	 * 
 	 * @param type
@@ -324,7 +348,6 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * 
 	 * Moves cursor to a specific element
 	 * 
 	 * @param type
@@ -358,7 +381,6 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * 
 	 * Gets text from an element
 	 * 
 	 * @param type
@@ -382,7 +404,6 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * 
 	 * Gets all options from select menu
 	 * 
 	 * @param type
@@ -413,7 +434,6 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * 
 	 * Gets value from an element by attribute
 	 * 
 	 * @param type
@@ -435,7 +455,6 @@ public class TestCaseExt {
 	}
 
 	/**
-	 * 
 	 * Verifies element exists
 	 * 
 	 * @param by
