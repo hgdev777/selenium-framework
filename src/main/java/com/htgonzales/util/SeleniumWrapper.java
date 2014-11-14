@@ -176,7 +176,7 @@ public class SeleniumWrapper {
 	}
 
 	/**
-	 * Generates random size of 10 alpha-numeric characters
+	 * Generates random alpha-numeric characters
 	 * 
 	 * @param length
 	 * @return
