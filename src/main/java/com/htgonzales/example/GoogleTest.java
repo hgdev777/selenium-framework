@@ -2,7 +2,7 @@ package com.htgonzales.example;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import com.htgonzales.util.TestCaseHelper;
+import com.htgonzales.util.TestCaseExt;
 
 /**
  * 
@@ -14,7 +14,7 @@ import com.htgonzales.util.TestCaseHelper;
  * @version 1.0
  * 
  */
-public class GoogleTest extends TestCaseHelper {
+public class GoogleTest extends TestCaseExt {
 
 	@BeforeClass
 	public void oneTimeSetUp() throws Exception {

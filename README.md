@@ -7,7 +7,7 @@ GUI automation framework making test case coding simple and easy using Selenium,
 
 Available encapsulated methods so far aside from Selenium native:
 
-```
+```sh
 init(<URL-GOES-HERE>)
 add(ID, <ID-GOES-HERE>)
 add(LINK_TEXT, <LINK-TEXT-GOES-HERE>)
@@ -60,9 +60,9 @@ package com.htgonzales.example;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import com.htgonzales.util.TestCaseHelper;
+import com.htgonzales.util.TestCaseExt;
 
-public class GoogleTest2 extends TestCaseHelper {
+public class GoogleTest extends TestCaseExt {
 
 	@BeforeClass
 	public void oneTimeSetUp() throws Exception {

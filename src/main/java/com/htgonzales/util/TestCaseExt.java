@@ -1,12 +1,18 @@
 package com.htgonzales.util;
 
+import static org.testng.Assert.assertTrue;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.Dimension;
@@ -20,27 +26,31 @@ import org.openqa.selenium.Point;
 public class TestCaseExt {
 
 	private static WebDriver _driver;
-	private String baseUrl;
-	private int timeout;
-	private Dimension dimension;
-	private Point point;
-
 	private static final String SLASH = "/";
-
+	private Map<String, String> fields;
+	private ArrayList<Element> list;
+	
 	protected static final int FOUND = 1;
 	protected static final int NOT_FOUND = 0;
-	protected static final int ERROR = -1;
-
 	protected static final String LINK_TEXT = "linkText";
 	protected static final String ID = "id";
 	protected static final String XPATH = "xpath";
 	protected static final String CSS_SELECTOR = "cssSelector";
-
-	/*
-	 * Constructor and Garbage Collector
-	 */
-
+	
+	public static final int PASS = 1;
+	public static final int FAIL = 0;
+	public static final int ERROR = -1;
+	public static final String BASE_URL = "selenium_baseurl";
+	public static final String TIMEOUT = "selenium_timeout";
+	public static final String DIMENSION_X = "selenium_dimensionx";
+	public static final String DIMENSION_Y = "selenium_dimensiony";
+	public static final String POINT_X = "selenium_pointx";
+	public static final String POINT_Y = "selenium_pointy";
+	public static final String SHARED_DRIVER = "selenium_sharedDriver";
+	
 	public TestCaseExt() {
+		this.list = new ArrayList<Element>();
+		this.fields = new HashMap<String, String>();
 	}
 
 	public void finalize() {
@@ -48,184 +58,202 @@ public class TestCaseExt {
 			_driver.quit();
 	}
 
-	/*
-	 * Getters
+	/**
+	 * 
+	 * @param url
+	 * @return
 	 */
+	public boolean init(String url) {
+		fields.put(BASE_URL, url);
+		if (!fields.containsKey(TIMEOUT))
+			fields.put(TIMEOUT, "3");
+		if (!fields.containsKey(DIMENSION_X))
+			fields.put(DIMENSION_X, "20");
+		if (!fields.containsKey(DIMENSION_Y))
+			fields.put(DIMENSION_Y, "200");
+		if (!fields.containsKey(POINT_X))
+			fields.put(POINT_X, "0");
+		if (!fields.containsKey(POINT_Y))
+			fields.put(POINT_Y, "0");
+		if (!fields.containsKey(SHARED_DRIVER))
+			fields.put(SHARED_DRIVER, "true");
 
-	public WebDriver getDriver() {
-		return _driver;
+		try {
+			// re-use browser instance if it exists
+			if (Boolean.parseBoolean(fields.get(SHARED_DRIVER))) {
+				WebDriver dr = _driver;
+				if (dr == null) {
+					_driver = new FirefoxDriver();
+				}
+			} else {
+				_driver = new FirefoxDriver();
+			}
+			_driver.manage().window().setSize(
+				new Dimension(
+					Integer.parseInt(fields.get(DIMENSION_X)), 
+					Integer.parseInt(fields.get(DIMENSION_Y))
+				)
+			);
+			_driver.manage().window().setPosition(
+				new Point(
+					Integer.parseInt(fields.get(POINT_X)), 
+					Integer.parseInt(fields.get(POINT_Y))
+				)
+			);
+			_driver.get(fields.get(BASE_URL) + SLASH);
+			_driver.manage().timeouts().implicitlyWait(Integer.parseInt(fields.get(TIMEOUT)), TimeUnit.SECONDS);		
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
-	public String getBaseUrl() {
-		return baseUrl;
-	}
-
-	public int getTimeout() {
-		return timeout;
-	}
-
-	public Dimension getDimension() {
-		return dimension;
-	}
-
-	public Point getPoint() {
-		return point;
-	}
-
-	/*
-	 * Setters
+	/**
+	 * 
+	 * @return fields
 	 */
+	public Map<String, String> getParams() {
+		return fields;
+	}
 
+	/**
+	 * 
+	 * @param k e.g. "ID", "CSS_SELECTOR", "XPATH"
+	 * @param v e.g. "username", "div.viewLogo", "//div[@id='username']/h1"
+	 */
+	public void add(String k, String v) {
+		this.list.add(new Element(Element.ELEMENT, k, v));
+	}
+
+	/**
+	 * 
+	 * @param k e.g. "XPATH"
+	 * @param v e.g. "Enter Username"
+	 * @param l e.g. "//div[@id='username']/h1"
+	 */
+	public void add(String k, String v, String l) {
+		this.list.add(new Element(Element.TEXT, k, v, l));
+	}
+	
+	public void wait(int sec) throws InterruptedException {
+		long msec = sec * 1000;
+		Thread.sleep(msec);
+	}
+
+	/**
+	 * 
+	 * @return String random size of 10 alpha-numeric characters
+	 */
+	public static String rand(int length) {
+		Random r = new Random();
+		String alphabet = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			builder.append(alphabet.charAt(r.nextInt(alphabet.length())));
+		}
+		return builder.toString();
+	}
+
+	/**
+	 * Add at least one element first using add(k, v) before calling verify().
+	 * This method clears the list right after it verifies.
+	 */
+	public void verify() {
+		if(!this.list.isEmpty()) {
+			for(Element element : this.list) {
+				if(element.getType() == Element.TEXT) {
+					assertTrue(isTextPresent(element.getKey(),
+							element.getValue(), element.getLocation()));
+				} else {
+					assertTrue(isElementPresent(element.getKey(),
+							element.getValue()));
+				}
+			}
+			this.list.clear();
+		}
+	}
+	
 	public boolean setDriver(WebDriver driver) {
 		_driver = driver;
 		return true;
 	}
 
-	public boolean setBaseUrl(String baseUrl) {
-		this.baseUrl = baseUrl;
-		try {
-			_driver.get(this.baseUrl + SLASH);
-		} catch (Throwable e) {
-			return false;
-		}
-		return true;
-	}
-
-	public boolean setTimeout(int timeout) {
-		this.timeout = timeout;
-		try {
-			_driver.manage().timeouts()
-					.implicitlyWait(this.timeout, TimeUnit.SECONDS);
-		} catch (Throwable e) {
-			return false;
-		}
-		return true;
-	}
-
-	public boolean setDimension(Dimension dimension) {
-		this.dimension = dimension;
-		try {
-			_driver.manage().window().setSize(this.dimension);
-		} catch (Throwable e) {
-			return false;
-		}
-		return true;
-	}
-
-	public boolean setPoint(Point point) {
-		this.point = point;
-		try {
-			_driver.manage().window().setPosition(this.point);
-		} catch (Throwable e) {
-			return false;
-		}
-		return true;
-	}
-
 	/**
-	 * Private Helpers
+	 * 
+	 * @return WebDriver
 	 */
-
-	private String convertToRegEx(String text) {
+	public WebDriver getDriver() {
+		return _driver;
+	}
+	
+	/**
+	 * 
+	 * Format text into regular expression
+	 * 
+	 * @param text
+	 * @return String
+	 */
+	public String convertToRegEx(String text) {
 		return "^[\\s\\S]*" + text + "[\\s\\S]*$";
 	}
-
-	private boolean isElementPresent(By by) {
-		try {
-			_driver.findElement(by);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-
-	private boolean isElementPresentById(String idStr) {
-		try {
-			return isElementPresent(By.id(idStr));
-		} catch (Throwable e) {
-			return false;
-		}
-	}
-
-	private boolean isElementPresentBytLinkText(String linkTextStr) {
-		try {
-			return isElementPresent(By.linkText(linkTextStr));
-		} catch (Throwable e) {
-			return false;
-		}
-	}
-
-	private boolean isElementPresentByXpath(String xpathStr) {
-		try {
-			return isElementPresent(By.xpath(xpathStr));
-		} catch (Throwable e) {
-			return false;
-		}
-	}
-
-	private boolean isElementPresentByCssSelector(String cssSelectorStr) {
-		try {
-			return isElementPresent(By.cssSelector(cssSelectorStr));
-		} catch (Throwable e) {
-			return false;
-		}
-	}
-
-	private boolean isTextPresentByCssSelector(String cssSelectorStr,
-			String textStr) {
-		try {
-			return _driver.findElement(By.cssSelector(cssSelectorStr))
-					.getText().matches(textStr);
-		} catch (Throwable e) {
-			return false;
-		}
-	}
-
-	private boolean isTextPresentByXpath(String xpathStr, String textStr) {
-		String textStrRegEx = this.convertToRegEx(textStr);
-		try {
-			return _driver.findElement(By.xpath(xpathStr)).getText()
-					.matches(textStrRegEx);
-		} catch (Throwable e) {
-			return false;
-		}
-	}
-
+	
+	/*
+	 * Operations and Actions
+	 */
+	
+	/**
+	 * 
+	 * Verifies element is present
+	 * 
+	 * @param type
+	 * 			"LINK_TEXT", "ID", "XPATH", "CSS_SELECTOR"
+	 * @param targetStr
+	 * @return
+	 */
 	protected boolean isElementPresent(String type, String targetStr) {
 		if (type.equals(LINK_TEXT)) {
-			return isElementPresentBytLinkText(targetStr);
+			return isElementPresent(By.linkText(targetStr));
 		} else if (type.equals(ID)) {
-			return isElementPresentById(targetStr);
+			return isElementPresent(By.id(targetStr));
 		} else if (type.equals(XPATH)) {
-			return isElementPresentByXpath(targetStr);
+			return isElementPresent(By.xpath(targetStr));
 		} else if (type.equals(CSS_SELECTOR)) {
-			return isElementPresentByCssSelector(targetStr);
+			return isElementPresent(By.cssSelector(targetStr));
 		} else {
 			return false;
 		}
 	}
 
+	/**
+	 * 
+	 * Verifies text is present
+	 * 
+	 * @param type
+	 * 			"CSS_SELECTOR", "XPATH"
+	 * @param targetStr 
+	 * @param locationStr
+	 * @return
+	 */
 	protected boolean isTextPresent(String type, String targetStr,
 			String locationStr) {
 		if (type.equals(CSS_SELECTOR)) {
-			return isTextPresentByCssSelector(locationStr, targetStr);
+			return _driver.findElement(By.cssSelector(targetStr))
+					.getText().matches(locationStr);
 		} else if (type.equals(XPATH)) {
-			return isTextPresentByXpath(locationStr, targetStr);
+			String textStrRegEx = this.convertToRegEx(targetStr);
+			return _driver.findElement(By.xpath(locationStr)).getText()
+					.matches(textStrRegEx);
 		}
 		return false;
 	}
-
-	/*
-	 * Operations and Actions
-	 */
-
+	
 	/**
 	 * 
-	 * Click an element
+	 * Clicks an element
 	 * 
 	 * @param type
 	 *            "LINK_TEXT", "CSS_SELECTOR", "ID"
-	 * @param target Locator
+	 * @param target
 	 * @return int
 	 */
 	protected int click(String type, String target) {
@@ -247,13 +275,11 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * Select value from select options
+	 * Selects value from select options
 	 * 
 	 * @param type "ID"
 	 * @param id
-	 *            unique id of the option
 	 * @param target
-	 *            text option value
 	 * @return int
 	 */
 	protected int select(String type, String id, String target) {
@@ -272,13 +298,12 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * Enter value in input field
+	 * Enters value in input field
 	 * 
 	 * @param type
 	 *            "ID", "CSS_SELECTOR"
-	 * @param target Locator
+	 * @param target
 	 * @param text
-	 *            value to be input
 	 * @return int
 	 */
 	protected int input(String type, String target, String text) {
@@ -300,11 +325,11 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * Move cursor to a specific element
+	 * Moves cursor to a specific element
 	 * 
 	 * @param type
 	 *            "ID", "LINK_TEXT", "CSS_SELECTOR", "XPATH"
-	 * @param target Locator
+	 * @param target
 	 * @return int
 	 */
 	protected int moveToElement(String type, String target) {
@@ -334,11 +359,11 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * Get text from an element
+	 * Gets text from an element
 	 * 
 	 * @param type
 	 *            "XPATH"
-	 * @param target Locator
+	 * @param target
 	 * @return String
 	 */
 	protected String getText(String type, String target) {
@@ -358,11 +383,11 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * Get all options from select menu
+	 * Gets all options from select menu
 	 * 
 	 * @param type
 	 *            "ID", "XPATH"
-	 * @param target Locator
+	 * @param target
 	 * @return List
 	 */
 	protected List<String> getSelectOptions(String type, String target) {
@@ -389,13 +414,12 @@ public class TestCaseExt {
 
 	/**
 	 * 
-	 * Get value from an element by attribute
+	 * Gets value from an element by attribute
 	 * 
 	 * @param type
 	 *            "CSS_SELECTOR"
-	 * @param target Locator
+	 * @param target
 	 * @param attribute
-	 *            Element attribute value
 	 * @return String
 	 */
 	protected String getAttributeValue(String type, String target,
@@ -410,4 +434,19 @@ public class TestCaseExt {
 		return retVal;
 	}
 
+	/**
+	 * 
+	 * Verifies element exists
+	 * 
+	 * @param by
+	 * @return
+	 */
+	private boolean isElementPresent(By by) {
+		try {
+			_driver.findElement(by);
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
+		}
+	}
 }
