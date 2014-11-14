@@ -1,0 +1,7 @@
+<suite name="Test Google">
+    <test name="com.htgonzales.example">
+        <classes>
+            <class name="com.htgonzales.example.GoogleTestOnChrome" />
+        </classes>
+    </test>
+</suite>
