@@ -25,8 +25,6 @@ public class TestCaseExt {
 
 	private static WebDriver _driver;
 	private static final String SLASH = "/";
-	private Map<String, String> fields;
-	private ArrayList<Element> list;
 
 	protected static final int FOUND = 1;
 	protected static final int NOT_FOUND = 0;
@@ -34,6 +32,8 @@ public class TestCaseExt {
 	protected static final String ID = "id";
 	protected static final String XPATH = "xpath";
 	protected static final String CSS_SELECTOR = "cssSelector";
+	protected Map<String, String> fields;
+	protected ArrayList<Element> list;
 
 	public static final int PASS = 1;
 	public static final int FAIL = 0;
